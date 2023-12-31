@@ -7,7 +7,7 @@ import os
 file_path = "data/bought.csv"
 
 # Function used to buy a product by passing its name, price, quantity and expiration date as arguments.
-# Inserts the data into the bought.csv file.
+# Inserts the data into the bought.csv file, which is a history of purchased products.
 def buy(product_name, buy_price, count, expiration_date):
     buy_date = date.today()
     # Converts the expiration_date into a valid date object.
@@ -40,7 +40,7 @@ def buy(product_name, buy_price, count, expiration_date):
 
             return writer_object.writerow(data.values())
 
-buy("milk", 2, 100, "2024-01-10")
+"""buy("milk", 2, 100, "2024-01-10")"""
 
 
 
