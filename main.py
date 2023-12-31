@@ -1,5 +1,5 @@
 import argparse
-from services.buy import buy
+from services.buy_product import buy_product
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -10,7 +10,7 @@ def main():
     parser = argparse.ArgumentParser(description="Superpy: a command-line tool for tracking a supermarket's inventory.")
 
     subparsers = parser.add_subparsers(dest="command", help="Choose a command.")
-
+    
     # Subparsers for the 'buy' command.
     buy_parser = subparsers.add_parser("buy", help="Buy a product")
     buy_parser.add_argument("--product_name", help="Name of the product")
@@ -21,7 +21,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == "buy":
-        buy(args.product_name, args.buy_price, args.count, args.expiration_date)
+        buy_product(args.product_name, args.buy_price, args.count, args.expiration_date)
     else:
         print(f"Unknown command: {args.command}")
 
