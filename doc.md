@@ -10,8 +10,8 @@
 
 # CSV file structure
 - All data must be saved in CSV files. 
-- bought.csv columns: id, product_name, buy_date, buy_price, quantity, expiration_date
-- sold.csv columns: id, bought_id, sell_date, sell_price, quantity
+- bought.csv columns: id, product_name, buy_date, buy_price, count, expiration_date
+- sold.csv columns: id, bought_id, sell_date, sell_price, count
 
 # Modules from standard library
 - csv: CSV File Reading and Writing
