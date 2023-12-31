@@ -1,3 +1,4 @@
 id,product_name,buy_date,buy_price,count,expiration_date
 53de4412-f713-4a48-841c-24e62a9f5b22,apple,2023-12-31,0.25,75,2024-01-15
 af953249-e3f4-46a2-bcd1-2bc2e62614e9,milk,2023-12-31,2,100,2024-01-10
+ce40c108-565c-4328-be81-a4fc02a0b940,orange,2023-12-31,0.25,25,2024-12-31
