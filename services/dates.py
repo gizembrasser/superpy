@@ -26,3 +26,8 @@ def set_today(date):
     with open(TODAY_FILE, "w") as f:
         f.write(date_object.strftime("%Y-%m-%d"))
 
+def advance_time(days):
+    today = get_today()
+    new_date = today + datetime.timedelta(days=days)
+
+    set_today(new_date.strftime("%Y-%m-%d"))
