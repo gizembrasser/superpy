@@ -1,0 +1,5 @@
+/data/
+/core/__pycache__
+/services/__pycache__
+/documentation/doc.md
+__pycache__
