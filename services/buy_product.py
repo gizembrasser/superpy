@@ -40,7 +40,7 @@ def buy_product(product_name, buy_price, count, expiration_date):
 
             return writer_object.writerow(data.values())
 
-"""buy_product("milk", 2, 100, "2024-01-10")"""
+"""buy_product("orange", 0.25, 50, "2024-01-01")"""
 
 
 

@@ -1,7 +1,7 @@
 import os
 import sys
 import csv
-import datetime
+from datetime import datetime, date
 
 # Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
@@ -19,7 +19,7 @@ def create_data_files():
     # Create today.txt if it doesn't exist.
     if not os.path.exists(TODAY_FILE):
         with open(TODAY_FILE, "w") as f:
-            today = datetime.date.today().strftime(DATE_FORMAT)
+            today = date.today().strftime(DATE_FORMAT)
             f.write(today)
     
     # Create initial CSV files with headers if they don't exist.
