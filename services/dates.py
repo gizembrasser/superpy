@@ -14,7 +14,7 @@ def get_today():
         with open(TODAY_FILE, "r") as f:
             today_str = f.read().strip()
             today_date = datetime.datetime.strptime(today_str, "%Y-%m-%d").date()
-        return today_date
+        return today_date 
     
     except FileNotFoundError:
         return datetime.date.today()
@@ -25,5 +25,4 @@ def set_today(date):
     
     with open(TODAY_FILE, "w") as f:
         f.write(date_object.strftime("%Y-%m-%d"))
-    get_today()
 
