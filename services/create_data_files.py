@@ -7,7 +7,7 @@ import datetime
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATA_DIR
+from core.constants import DATA_DIR, DATE_FORMAT
 from core.constants import TODAY_FILE, BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE, COSTS_FILE, REVENUE_FILE, PROFIT_FILE
 from core.constants import BOUGHT_HEADER, SOLD_HEADER, EXPIRED_HEADER, INVENTORY_HEADER, COSTS_HEADER, REVENUE_HEADER, PROFIT_HEADER
 
@@ -19,7 +19,7 @@ def create_data_files():
     # Create today.txt if it doesn't exist.
     if not os.path.exists(TODAY_FILE):
         with open(TODAY_FILE, "w") as f:
-            today = datetime.date.today().strftime("%Y-%m-%d")
+            today = datetime.date.today().strftime(DATE_FORMAT)
             f.write(today)
     
     # Create initial CSV files with headers if they don't exist.
@@ -42,6 +42,11 @@ def create_data_files():
         with open(INVENTORY_FILE, "w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(INVENTORY_HEADER)
+
+    if not os.path.exists(COSTS_FILE):
+        with open(COSTS_FILE, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(COSTS_HEADER)
 
     if not os.path.exists(REVENUE_FILE):
         with open(REVENUE_FILE, "w", newline="") as f:

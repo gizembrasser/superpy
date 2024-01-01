@@ -1,5 +1,6 @@
 import datetime
 
+from core.constants import DATE_FORMAT
 from core.create_parser import create_parser
 from services.create_data_files import create_data_files
 from services.dates import get_today, set_today, advance_time
@@ -25,7 +26,7 @@ def main():
         if args.today:
             date_object = datetime.datetime.today()
             
-            set_today(date_object.strftime("%Y-%m-%d"))
+            set_today(date_object.strftime(DATE_FORMAT))
             print(f"Today's date has been automatically set to the current day.")
 
     # Get_today function is added to the parser.
