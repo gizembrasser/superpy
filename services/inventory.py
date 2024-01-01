@@ -1,7 +1,7 @@
 import csv
 import os
 import sys
-from datetime import datetime, date
+from datetime import datetime
 
 
 # Add grandparent directory to sys.path to be able to import from 'core' folder.
