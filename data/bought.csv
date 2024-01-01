@@ -1,1 +1,3 @@
 id,product_name,buy_date,buy_price,count,expiration_date
+d1435a68-979c-4490-9f56-f7450e4ac73f,milk,2024-01-01,2,100,2024-01-10
+e3adf940-afcd-4744-8c0a-cc37ced4389e,orange,2024-01-01,0.25,50,2024-01-01
