@@ -10,10 +10,20 @@ from core.constants import TODAY_FILE
 
 # Grabs the current day from the today.txt file.
 def get_today():
-    if not os.path.exists(TODAY_FILE):
+    try: 
+        with open(TODAY_FILE, "r") as f:
+            today_str = f.read().strip()
+            today_date = datetime.datetime.strptime(today_str, "%Y-%m-%d").date()
+        return today_date
+    
+    except FileNotFoundError:
         return datetime.date.today()
     
-    with open(TODAY_FILE, "r") as f:
-        today_str = f.read().strip()
-        today_date = datetime.datetime.strptime(today_str, "%Y-%m-%d").date()
-    return today_date
+# Manually set a date for today.
+def set_today(date):
+    date_object = datetime.datetime.strptime(date, "%Y-%m-%d")
+    
+    with open(TODAY_FILE, "w") as f:
+        f.write(date_object.strftime("%Y-%m-%d"))
+    get_today()
+
