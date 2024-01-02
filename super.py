@@ -2,9 +2,9 @@ import datetime
 
 from core.constants import DATE_FORMAT
 from core.parser import create_parser
-from services.create_data_files import create_data_files
+from services.files import create_data_files
 from services.dates import get_today, set_today, advance_time
-from services.update_inventory import update_inventory
+from services.inventory import update_inventory
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"

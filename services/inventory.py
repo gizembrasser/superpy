@@ -9,7 +9,7 @@ grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE, EXPIRED_HEADER, INVENTORY_FILE, INVENTORY_HEADER
-from dates import get_today
+from services.dates import get_today
 
 # The inventory is updated after each action performed in the CLI.
 def update_inventory():
@@ -50,5 +50,3 @@ def update_inventory():
 
         for product in expired:
             writer.writerow(product.values())
-
-update_inventory()
