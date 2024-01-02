@@ -13,7 +13,7 @@ from core.constants import DATE_FORMAT, BOUGHT_FILE
 from services.dates import get_today
 
 # Function that takes attributes of a product as arguments, adds the product to BOUGHT_FILE.
-def buy(product_name, buy_price, count, expiration_date_str):
+def buy_product(product_name, buy_price, count, expiration_date_str):
     buy_date = get_today()
     # Convert expiration_date_str into datetime object.
     expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT)
@@ -33,4 +33,4 @@ def buy(product_name, buy_price, count, expiration_date_str):
         writer = csv.writer(f)
         writer.writerow(data.values())
 
-"""buy("doodoo", 1.50, 300, "2024-01-10")"""
+"""buy_product("doodoo", 1.50, 300, "2024-01-10")"""
