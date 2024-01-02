@@ -1,7 +1,7 @@
 import datetime
 
 from core.constants import DATE_FORMAT
-from core.create_parser import create_parser
+from core.parser import create_parser
 from services.create_data_files import create_data_files
 from services.dates import get_today, set_today, advance_time
 from services.update_inventory import update_inventory
@@ -23,7 +23,6 @@ def main():
     if args.command == "set_today":
         if args.date:
             set_today(args.date)
-            print(f"Today's date is now set to {args.date}.")
         if args.today:
             date_object = datetime.datetime.today()
             

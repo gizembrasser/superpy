@@ -21,10 +21,14 @@ def get_today():
     
 # Manually set a date for today.
 def set_today(date):
-    date_object = datetime.strptime(date, DATE_FORMAT)
+    try:
+        date_object = datetime.strptime(date, DATE_FORMAT)
     
-    with open(TODAY_FILE, "w") as f:
-        f.write(date_object.strftime(DATE_FORMAT))
+        with open(TODAY_FILE, "w") as f:
+            f.write(date_object.strftime(DATE_FORMAT))
+        print(f"Today's date is now set to {date}.")
+    except ValueError: 
+        print("Invalid date format. Please use the format YYYY-MM-DD.")
 
 def advance_time(days):
     today = get_today()
