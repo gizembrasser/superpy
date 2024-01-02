@@ -29,6 +29,7 @@ def main():
             
             set_today(date_object.strftime(DATE_FORMAT))
             print(f"Today's date has been automatically set to the current day.")
+        update_inventory()
 
     # get_today function is called when this command is given.
     elif args.command == "get_today":
@@ -38,10 +39,7 @@ def main():
     elif args.command == "advance_time":
         print(f"Advancing time with {args.days} days...")
         advance_time(args.days)
-
-    # After every command the inventory gets updated (checks for expired products).
-    update_inventory()
-    
+        update_inventory()
 
 if __name__ == "__main__":
     main()
