@@ -63,6 +63,20 @@ def create_data_files():
             writer = csv.writer(f)
             writer.writerow(PROFIT_HEADER)
 
+def clear_csv_files():
+    if not os.path.exists(DATA_DIR):
+        print(f"Directory '{DATA_DIR}' does not exist.")
+
+    # Iterate through list of files in the directory.
+    for file in os.listdir(DATA_DIR):
+        file_path = os.path.join(DATA_DIR, file)
+
+        # Check if it's a file and has a '.csv' extension.
+        if os.path.isfile(file_path) and file.endswith(".csv"):
+            # Delete the CSV file
+            os.remove(file_path)
+            
+    print(f"Cleared of contents of all CSV files.")
     
 
 
