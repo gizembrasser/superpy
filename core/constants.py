@@ -1,12 +1,12 @@
 import os
 
-# Declare the data directory.
+# Declare the path to the data directory.
 DATA_DIR = os.path.join(os.getcwd(), "data")
 
 # Declare the date format.
 DATE_FORMAT = "%Y-%m-%d"
 
-# Declare the data CSV files.
+# Declare the path to the data CSV files.
 TODAY_FILE = os.path.join(DATA_DIR, "today.txt")
 BOUGHT_FILE = os.path.join(DATA_DIR, "bought.csv")
 SOLD_FILE = os.path.join(DATA_DIR, "sold.csv")
