@@ -12,6 +12,7 @@ from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE, EXPIRED_HEADE
 from services.dates import get_today
 
 # The inventory is updated after each action performed in the CLI.
+# Check the expiration dates in the BOUGHT_FILE, add them to the EXPIRED_FILE or INVENTORY_FILE.
 def update_inventory():
     print("Updating inventory...")
     today_date = get_today()
@@ -19,12 +20,14 @@ def update_inventory():
     inventory = []
 
     with open(BOUGHT_FILE, "r") as f:
+        # Return each row of the CSV file as a dict, with the keys taken from the header row.
         reader = csv.DictReader(f)
         
-        # Checks each product's expiration date, adds to the 'expired' list if date has passed.
-        # If the product is not expired it gets added to the 'inventory' list.
+        # Loop through the list of dictionaries.
         for row in reader:
+            # Use .get() to retrieve the value of the 'expiration_date' key.
             expiration_date_str = row.get("expiration_date")
+            # Convert expiration_date values to datetime object, to compare them with today_date.
             expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT).date()
 
             if expiration_date < today_date:
@@ -32,7 +35,7 @@ def update_inventory():
             else: 
                 inventory.append(row)
     
-    # Write the non-expired products to the inventory.csv file.
+    # Write the non-expired products (stored in inventory list) to the inventory.csv file.
     with open(INVENTORY_FILE, "w", newline="") as f:
         print(f"Found {len(inventory)} products that are not expired and wrote them to the inventory.csv file")
         writer = csv.writer(f)

@@ -14,15 +14,15 @@ __human_name__ = "superpy"
 def main():
     create_data_files()
 
+    # create_parser() returns an object containing parsed command-line arguments.
     args = create_parser()
 
-    # Check which command was given.
-    # Call the corresponding function with the given arguments.
-
-    # Set_today function is added to the parser.
+    # Check which command was given using the 'command' attribute of args.
     if args.command == "set_today":
+        # Check if any optional arguments ('date' or 'today') were provided alongside the command.
         if args.date:
-            if set_today(args.date) !=0:
+            # If a valid date was provided set_today is called to change the date.
+            if set_today(args.date) != 0:
                 print(f"Today's date is now set to {args.date}.")
         if args.today:
             date_object = datetime.datetime.today()
@@ -30,17 +30,16 @@ def main():
             set_today(date_object.strftime(DATE_FORMAT))
             print(f"Today's date has been automatically set to the current day.")
 
-    # Get_today function is added to the parser.
+    # get_today function is called when this command is given.
     elif args.command == "get_today":
         date = get_today()
         print(f"Today's date is {date}.")
 
-
-    # Advance_time function is added to the parser.
     elif args.command == "advance_time":
         print(f"Advancing time with {args.days} days...")
         advance_time(args.days)
 
+    # After every command the inventory gets updated (checks for expired products).
     update_inventory()
     
 

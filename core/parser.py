@@ -20,7 +20,9 @@ def create_parser():
 
     parser_advance_time = subparsers.add_parser("advance_time", help="Set the date forwards or backwards x days")
     parser_advance_time.add_argument("days", type=int, help="The humber of days to advance(can also be negative)")
-    
+
+    # Parse the command-line arguments and stores the result in a variable.
+    # You'll be able to access its attributes by using args.command for example.
     args = parser.parse_args()
 
     return args
