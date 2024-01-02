@@ -5,6 +5,7 @@ from core.parser import create_parser
 from services.files import create_data_files
 from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory
+from services.buy import buy_product
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -39,6 +40,10 @@ def main():
     elif args.command == "advance_time":
         print(f"Advancing time with {args.days} days...")
         advance_time(args.days)
+        update_inventory()
+    
+    elif args.command == "buy":
+        buy_product(args.product_name, args.buy_price, args.count, args.expiration_date)
         update_inventory()
 
 if __name__ == "__main__":
