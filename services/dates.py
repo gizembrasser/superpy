@@ -26,9 +26,9 @@ def set_today(date):
     
         with open(TODAY_FILE, "w") as f:
             f.write(date_object.strftime(DATE_FORMAT))
-        print(f"Today's date is now set to {date}.")
     except ValueError: 
         print("Invalid date format. Please use the format YYYY-MM-DD.")
+        return 0
 
 def advance_time(days):
     today = get_today()

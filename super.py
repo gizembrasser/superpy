@@ -22,26 +22,27 @@ def main():
     # Set_today function is added to the parser.
     if args.command == "set_today":
         if args.date:
-            set_today(args.date)
+            if set_today(args.date) !=0:
+                print(f"Today's date is now set to {args.date}.")
         if args.today:
             date_object = datetime.datetime.today()
             
             set_today(date_object.strftime(DATE_FORMAT))
             print(f"Today's date has been automatically set to the current day.")
-            # After every command the inventory gets updated.
-            update_inventory()
 
     # Get_today function is added to the parser.
     elif args.command == "get_today":
         date = get_today()
         print(f"Today's date is {date}.")
-        update_inventory()
+
 
     # Advance_time function is added to the parser.
     elif args.command == "advance_time":
         print(f"Advancing time with {args.days} days...")
         advance_time(args.days)
-        update_inventory()
+
+    update_inventory()
+    
 
 if __name__ == "__main__":
     main()
