@@ -29,6 +29,12 @@ def create_parser():
     parser_buy.add_argument("--count", type=int, default=1, help="Quantity of the product (default is 1)")
     parser_buy.add_argument("--expiration_date", required=True, help="Expiration date of the product (YYYY-MM-DD)")
 
+    # Command to sell a product from the inventory.
+    parser_sell = subparsers.add_parser("sell", help="Sell a product or products")
+    parser_sell.add_argument("--product_name", required=True, help="Name of the product")
+    parser_sell.add_argument("--sell_price", type=float, required=True, help="Sell price of the product")
+    parser_sell.add_argument("--count", type=int, default=1, help="Quantity of the product (default is 1)")
+
     # Command to display CSV date in the terminal.
     parser_report = subparsers.add_parser("report", help="Display data from a specified CSV file")
     parser_report.add_argument("file", choices=["bought", "expired"], help="Specify which CSV file to show as a table")

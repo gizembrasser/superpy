@@ -6,6 +6,7 @@ from services.files import create_data_files
 from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory
 from services.buy import buy_product
+from services.sell import sell_product
 from services.report import display_report
 
 # Do not change these lines.
@@ -45,6 +46,10 @@ def main():
     
     elif args.command == "buy":
         buy_product(args.product_name, args.buy_price, args.count, args.expiration_date)
+        update_inventory()
+
+    elif args.command == "sell":
+        sell_product(args.product_name, args.sell_price, args.count)
         update_inventory()
     
     elif args.command == "report":
