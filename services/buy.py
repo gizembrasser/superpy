@@ -10,10 +10,15 @@ sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, BOUGHT_FILE
 from services.dates import get_today
+from utils.numbers import is_positive_number
 
 
 # Function that takes attributes of a product as arguments, adds the product to BOUGHT_FILE.
 def buy_product(product_name, buy_price, count, expiration_date_str):
+    if not is_positive_number(buy_price, count):
+        print("Please enter a positive number for --buy_price and --count.")
+        return None
+    
     buy_date = get_today()
     # Convert expiration_date_str into datetime object.
     expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT)
@@ -32,6 +37,7 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
     with open(BOUGHT_FILE, mode="a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(data.values())
+        
 
 
 """buy_product("doodoo", 1.50, 300, "2024-01-10")"""
