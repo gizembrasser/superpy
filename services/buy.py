@@ -4,7 +4,6 @@ import sys
 from datetime import datetime
 import uuid
 
-
 # Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
