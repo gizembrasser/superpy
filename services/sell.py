@@ -34,8 +34,13 @@ def sell_product(product_name, sell_price, count):
     if len(filtered_inventory) == 0:
         return f"No {product_name} found in stock."
     elif int(filtered_inventory[0]["count"]) < count:
-        return f"Not enough product in stock."
-
+        answer = input(f"Not enough {product_name} in stock. Do you want to sell the remaining {filtered_inventory[0]["count"]} items? (y/n): ")
+        if answer.lower() == "y":
+            count = int(filtered_inventory[0]["count"])
+            sell_product(product_name, sell_price, count)
+        else:
+            return "Sale cancelled."
+        
     # Assign the data to the right keys so it can be written to the correct headers in the CSV file.   
     for item in filtered_inventory:
         sold_data = {
@@ -43,7 +48,7 @@ def sell_product(product_name, sell_price, count):
             "product_name": item["product_name"],
             "buy_date": item["buy_date"],
             "buy_price": item["buy_price"],
-            "count": item["count"],
+            "count": count,
             "sell_date": sell_date,
             "sell_price": sell_price
         }
@@ -54,7 +59,7 @@ def sell_product(product_name, sell_price, count):
         writer.writerow(sold_data.values())
     
                    
-sell_product("orange", 0.9, 150)
+sell_product("orange", 0.9, 300)
 
 
 
