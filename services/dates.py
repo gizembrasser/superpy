@@ -8,6 +8,7 @@ sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, TODAY_FILE
 
+
 # Grabs the current day from the TODAY_FILE file.
 def get_today():
     try: 
@@ -20,7 +21,8 @@ def get_today():
         
     except FileNotFoundError:
         return date.today()
-    
+
+
 # Manually set a date for today.
 def set_today(date):
     # Try to convert argument passed into a datetime object to see if it's a valid date.
@@ -33,6 +35,7 @@ def set_today(date):
         print("Invalid date format. Please use the format YYYY-MM-DD.")
         # Return 0 if argument passed is invalid due to ValueError.
         return 0
+
 
 # Function to advance time based on the date in TODAY_FILE file.
 def advance_time(days):

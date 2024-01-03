@@ -3,13 +3,13 @@ import os
 import sys
 from datetime import datetime
 
-
 # Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE, EXPIRED_HEADER, INVENTORY_FILE, INVENTORY_HEADER
 from services.dates import get_today
+
 
 # The inventory is updated after each action performed in the CLI.
 # Check the expiration dates in the BOUGHT_FILE, add them to the EXPIRED_FILE or INVENTORY_FILE.
@@ -43,7 +43,6 @@ def update_inventory():
 
         for product in inventory:
             writer.writerow(product.values())
-
 
     # Write the expired products to the expired.csv file.
     with open(EXPIRED_FILE, "w", newline="") as f:

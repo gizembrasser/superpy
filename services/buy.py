@@ -11,6 +11,7 @@ sys.path.append(grandparent_dir)
 from core.constants import DATE_FORMAT, BOUGHT_FILE
 from services.dates import get_today
 
+
 # Function that takes attributes of a product as arguments, adds the product to BOUGHT_FILE.
 def buy_product(product_name, buy_price, count, expiration_date_str):
     buy_date = get_today()
@@ -31,5 +32,6 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
     with open(BOUGHT_FILE, mode="a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(data.values())
+
 
 """buy_product("doodoo", 1.50, 300, "2024-01-10")"""

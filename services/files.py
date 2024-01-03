@@ -11,6 +11,7 @@ from core.constants import DATA_DIR, DATE_FORMAT
 from core.constants import TODAY_FILE, BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE, COSTS_FILE, REVENUE_FILE, PROFIT_FILE
 from core.constants import BOUGHT_HEADER, SOLD_HEADER, EXPIRED_HEADER, INVENTORY_HEADER, COSTS_HEADER, REVENUE_HEADER, PROFIT_HEADER
 
+
 # Create directory for data files if it doesn't exist.
 def create_data_files():
     if not os.path.exists(DATA_DIR):
@@ -63,6 +64,8 @@ def create_data_files():
             writer = csv.writer(f)
             writer.writerow(PROFIT_HEADER)
 
+
+# Function to delete all CSV files.
 def clear_csv_files():
     if not os.path.exists(DATA_DIR):
         print(f"Directory '{DATA_DIR}' does not exist.")

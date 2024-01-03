@@ -2,6 +2,7 @@ import csv
 from rich.console import Console
 from rich.table import Table
 
+
 # Use the rich library to display a CSV file in the terminal as a table.
 def display_report(file_path):
     # Create a table.
