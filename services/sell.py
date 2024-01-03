@@ -7,8 +7,9 @@ from datetime import datetime
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, INVENTORY_FILE, SOLD_FILE
+from core.constants import INVENTORY_FILE, INVENTORY_HEADER, SOLD_FILE
 from services.dates import get_today
+
 
 # Function that removes sold products from the inventory and writes them to the SOLD_FILE.
 def sell_product(product_name, sell_price, count):
@@ -20,23 +21,35 @@ def sell_product(product_name, sell_price, count):
         # Convert the content of INVENTORY_FILE into a list of dictionaries.
         inventory = list(reader)
 
-        # List comprehension to filter the inventory based on the product_name and expiration_date.   
-        filtered_inventory = [
-            item
-            for item in inventory 
-            if (
-                item["product_name"] == product_name
-                and datetime.strptime(item["expiration_date"], DATE_FORMAT). date() >= sell_date
-            )
-        ]
+        # List comprehension to filter the inventory based on the product_name.
+        filtered_inventory = [item for item in inventory if (item["product_name"] == product_name)]
 
-    # The filtered_inventory list should contain the found product(s) if it is in stock.
+    # The filtered_inventory list should contain a dictionary of the found product(s) if in stock.
     if len(filtered_inventory) == 0:
         print(f"No {product_name} found in stock.")
     elif int(filtered_inventory[0]["count"]) < count:
         print(f"Not enough {product_name} in stock. Maximum quantity: {filtered_inventory[0]["count"]}")
     
     else:
+        # Remove the sold product dictionary from the inventory list.
+        inventory.remove(filtered_inventory[0])
+        
+        if int(filtered_inventory[0]["count"]) == count:
+            # Overwrite the INVENTORY_FILE to contain the new inventory, without the sold product(s).
+            with open(INVENTORY_FILE, "w", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=INVENTORY_HEADER)
+                writer.writeheader()
+                writer.writerows(inventory)
+        else:
+            # If the amount to be sold is less than the amount in stock, subtract them.
+            filtered_inventory[0]["count"] = int(filtered_inventory[0]["count"]) - count
+            # Extend the inventory with the updated count.
+            inventory.extend(filtered_inventory)
+            with open(INVENTORY_FILE, "w", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=INVENTORY_HEADER)
+                writer.writeheader()
+                writer.writerows(inventory)
+                 
         # Assign the data to the right keys so it can be written to the correct headers in the CSV file.   
         for item in filtered_inventory:
             sold_data = {
@@ -55,7 +68,7 @@ def sell_product(product_name, sell_price, count):
             writer.writerow(sold_data.values())
     
                    
-"""sell_product("orange", 0.9, 200)"""
+sell_product("orange", 0.8, 50)
 
 
 
