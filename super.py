@@ -1,6 +1,6 @@
 import datetime
 
-from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE
+from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE, INVENTORY_FILE
 from core.parser import create_parser
 from services.files import create_data_files, clear_csv_files
 from services.dates import get_today, set_today, advance_time
@@ -60,6 +60,8 @@ def main():
             display_report(BOUGHT_FILE)
         elif args.file == "expired":
             display_report(EXPIRED_FILE)
+        elif args.file == "inventory":
+            display_report(INVENTORY_FILE)
 
     elif args.command == "clear_history":
         clear_csv_files()
