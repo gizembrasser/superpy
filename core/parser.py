@@ -16,7 +16,7 @@ def create_parser():
     # Set_today command alongside optional 'date' parameter and '--today' argument.
     parser_set_today = subparsers.add_parser("set_today", help="Set the current date")
     parser_set_today.add_argument("date", nargs="?", default=None, help="The date (YYYY-MM-DD) to set as today")
-    parser_set_today.add_argument("--today", default=True, help="Set the current day as today")
+    parser_set_today.add_argument("--today", nargs="?", const=True, default=False, help="Set the current day as today")
 
     # Advance_time command alongside the 'days' parameter.
     parser_advance_time = subparsers.add_parser("--advance_time", help="Set the date forwards or backwards x days")
