@@ -48,6 +48,7 @@ def main():
         update_inventory()
     
     elif args.command == "report":
+        # Checks which CSV file to display a report of.
         if args.file == "bought":
             display_report(BOUGHT_FILE)
         elif args.file == "expired":
