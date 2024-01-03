@@ -18,7 +18,7 @@ PROFIT_FILE = os.path.join(DATA_DIR, "profit.csv")
 
 # Declare the headers for the CSV files.
 BOUGHT_HEADER = ["id", "product_name", "buy_date", "buy_price", "count", "expiration_date"]
-SOLD_HEADER = ["bought_id", "product_name", "sell_date", "sell_price", "count"]
+SOLD_HEADER = ["bought_id", "product_name", "sell_date", "buy_date", "sell_price", "buy_price", "count"]
 EXPIRED_HEADER = ["bought_id", "product_name", "buy_date", "buy_price", "count", "expiration_date"]
 INVENTORY_HEADER = ["bought_id", "product_name", "buy_date", "buy_price", "count", "expiration_date"]
 COSTS_HEADER = ["id", "total_count", "cost_date", "total_cost"]
