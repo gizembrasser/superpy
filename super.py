@@ -2,7 +2,7 @@ import datetime
 
 from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE
 from core.parser import create_parser
-from services.files import create_data_files
+from services.files import create_data_files, clear_csv_files
 from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory
 from services.buy import buy_product
@@ -49,8 +49,10 @@ def main():
         update_inventory()
 
     elif args.command == "sell":
-        sell_product(args.product_name, args.sell_price, args.count)
+        # Update inventory before function call, to prevent selling expired products.
         update_inventory()
+        sell_product(args.product_name, args.sell_price, args.count)
+        
     
     elif args.command == "report":
         # Checks which CSV file to display a report of.
@@ -58,6 +60,10 @@ def main():
             display_report(BOUGHT_FILE)
         elif args.file == "expired":
             display_report(EXPIRED_FILE)
+
+    elif args.command == "clear_history":
+        clear_csv_files()
+        print("Cleared all CSV files. Run any command to generate new ones.")
 
 if __name__ == "__main__":
     main()

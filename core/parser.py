@@ -39,6 +39,9 @@ def create_parser():
     parser_report = subparsers.add_parser("report", help="Display data from a specified CSV file")
     parser_report.add_argument("file", choices=["bought", "expired"], help="Specify which CSV file to show as a table")
 
+    # Command to clear all CSV files
+    parser_clear_csv_files = subparsers.add_parser("clear_history", help="Clear all CSV files")
+
     # Parse the command-line arguments and stores the result in a variable.
     # You'll be able to access its attributes by using args.command for example.
     args = parser.parse_args()
