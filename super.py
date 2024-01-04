@@ -25,7 +25,7 @@ def main():
         # Check if any optional arguments ('date' or 'today') were provided alongside the command.
         if args.date:
             # If a valid date was provided set_today is called to change the date.
-            if set_today(args.date) != 0:
+            if set_today(args.date):
                 print(f"Today's date is now set to {args.date}.")
         if args.today:
             date_object = datetime.datetime.today()
@@ -55,7 +55,6 @@ def main():
         update_inventory()
         sell_product(args.product_name, args.sell_price, args.count)
         
-    
     elif args.command == "report":
         # Checks which CSV file to display a report of.
         if args.file == "bought":
@@ -68,6 +67,7 @@ def main():
     elif args.command == "clear_history":
         clear_csv_files()
         print("Cleared all CSV files. Run any command to generate new ones.")
+
 
 if __name__ == "__main__":
     main()

@@ -31,10 +31,12 @@ def set_today(date):
     
         with open(TODAY_FILE, "w") as f:
             f.write(date_object.strftime(DATE_FORMAT))
+        
+        return date_object
     except ValueError: 
         print("Invalid date format. Please use the format YYYY-MM-DD.")
         # Return 0 if argument passed is invalid due to ValueError.
-        return 0
+        return None
 
 
 # Function to advance time based on the date in TODAY_FILE file.
