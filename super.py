@@ -7,7 +7,7 @@ from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory, add_to_inventory
 from services.buy import buy_product
 from services.sell import sell_product
-from services.report import display_report
+from utils.output_table import output_table
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -56,13 +56,7 @@ def main():
         sell_product(args.product_name, args.sell_price, args.count)
         
     elif args.command == "report":
-        # Checks which CSV file to display a report of.
-        if args.file == "bought":
-            display_report(BOUGHT_FILE)
-        elif args.file == "expired":
-            display_report(EXPIRED_FILE)
-        elif args.file == "inventory":
-            display_report(INVENTORY_FILE)
+        output_table(args.content_type)
 
     elif args.command == "clear_history":
         clear_csv_files()
