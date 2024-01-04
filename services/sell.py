@@ -9,7 +9,7 @@ sys.path.append(grandparent_dir)
 
 from core.constants import INVENTORY_FILE, INVENTORY_HEADER, SOLD_FILE
 from services.dates import get_today
-from utils.numbers import is_positive_number
+from utils.is_positive_number import is_positive_number
 
 
 # Function that removes sold products from the inventory and writes them to the SOLD_FILE.

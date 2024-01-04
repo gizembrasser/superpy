@@ -10,7 +10,7 @@ sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, BOUGHT_FILE
 from services.dates import get_today
-from utils.numbers import is_positive_number
+from utils.is_positive_number import is_positive_number
 
 
 # Function that takes attributes of a product as arguments, adds the product to BOUGHT_FILE.
