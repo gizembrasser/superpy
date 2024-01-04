@@ -21,6 +21,6 @@ BOUGHT_HEADER = ["id", "product_name", "buy_date", "buy_price", "count", "expira
 SOLD_HEADER = ["sold_id", "product_name", "buy_date", "buy_price", "count", "sell_date", "sell_price"]
 EXPIRED_HEADER = ["bought_id", "product_name", "buy_date", "buy_price", "count", "expiration_date"]
 INVENTORY_HEADER = ["bought_id", "product_name", "buy_date", "buy_price", "count", "expiration_date"]
-COSTS_HEADER = ["period", "total_count", "total_costs"]
+COSTS_HEADER = ["period", "costs"]
 REVENUE_HEADER = ["period", "revenue"]
 PROFIT_HEADER = ["period", "profit"]
