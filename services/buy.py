@@ -21,7 +21,11 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
     
     buy_date = get_today()
     # Convert expiration_date_str into datetime object.
-    expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT).date()
+    try:
+        expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT).date()
+    except ValueError:
+        print("Invalid date format. Please use the format YYYY-MM-DD.")
+        return None
 
     if expiration_date < buy_date:
         print("Can't buy expired products. Please enter a different --expiration_date.")
