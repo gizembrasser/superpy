@@ -4,7 +4,7 @@ from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE, INVENTORY_FIL
 from core.parser import create_parser
 from services.files import create_data_files, clear_csv_files
 from services.dates import get_today, set_today, advance_time
-from services.inventory import update_inventory
+from services.inventory import update_inventory, add_to_inventory
 from services.buy import buy_product
 from services.sell import sell_product
 from services.report import display_report
@@ -45,7 +45,8 @@ def main():
         update_inventory()
     
     elif args.command == "buy":
-        buy_product(args.product_name, args.buy_price, args.count, args.expiration_date)
+        bought_product = buy_product(args.product_name, args.buy_price, args.count, args.expiration_date)
+        add_to_inventory(bought_product)
         update_inventory()
 
     elif args.command == "sell":
