@@ -1,6 +1,6 @@
 import datetime
 
-from core.constants import DATE_FORMAT, BOUGHT_FILE, EXPIRED_FILE, INVENTORY_FILE
+from core.constants import DATE_FORMAT
 from core.parser import create_parser
 from services.files import create_data_files, clear_csv_files
 from services.dates import get_today, set_today, advance_time
