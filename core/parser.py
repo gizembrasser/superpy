@@ -37,7 +37,7 @@ def create_parser():
 
     # Command to display CSV date in the terminal.
     parser_report = subparsers.add_parser("report", help="Display data from a specified CSV file")
-    parser_report.add_argument("content_type", choices=["bought", "expired", "inventory"], help="Specify which CSV file to show as a table")
+    parser_report.add_argument("content_type", choices=["bought", "sold", "expired", "inventory"], help="Specify which CSV file to show as a table")
 
     # Command to clear all CSV files
     subparsers.add_parser("clear_history", help="Clear all CSV files")
