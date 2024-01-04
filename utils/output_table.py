@@ -79,7 +79,7 @@ def output_table(content_type, period=None):
         if product_id not in color_dict:
             # Color style is determined based on the index 'i' using the % operator.
             # This ensures that the colors repeat if there are more products than colors.
-            color_dict[product_id] == colors[i % len(colors)]
+            color_dict[product_id] = colors[i % len(colors)]
         # Add new row to table. * is used to unpack the elements of the 'row' list.
         table.add_row(*row, style=color_dict[product_id])
 

@@ -46,6 +46,7 @@ def main():
     
     elif args.command == "buy":
         bought_product = buy_product(args.product_name, args.buy_price, args.count, args.expiration_date)
+        # If buy_product() returned a valid product dictionary, add it to inventory.
         if bought_product:
             add_to_inventory(bought_product)
         update_inventory()
