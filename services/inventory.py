@@ -9,7 +9,7 @@ sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, EXPIRED_FILE, EXPIRED_HEADER, INVENTORY_FILE, INVENTORY_HEADER
 from services.dates import get_today
-
+"""from services.buy import buy_product"""
 
 # Executes after every action performed through the CLI.
 # Checks the expiration dates in the INVENTORY_FILE, adds them to EXPIRED_FILE if expired.
@@ -53,25 +53,26 @@ def update_inventory():
             writer.writerow(product.values())        
 
 
-"""bought_product = buy_product("orange", 0.25, 200, "2024-01-03")"""
+"""bought_product = buy_product("orange", 0.8, 200, "2024-01-06")"""
 
 # Takes a purchased product (a dict from the BOUGHT_FILE) as argument, adds it to the inventory.
 def add_to_inventory(bought_product):
     inventory = []
 
-    # Check if there's already a product in stock with the same product_name and buy_price. 
+    # Check if there's already a product in stock with the same product_name, buy_price and expiration_date. 
     with open(INVENTORY_FILE, mode="r") as f:
         reader = csv.DictReader(f)
         # Convert the content of INVENTORY_FILE into a list of dictionaries.
         inventory = list(reader)
 
-        # List comprehension to filter the inventory based on the product_name and buy_price.
+        # List comprehension to filter the inventory based on the product_name, buy_price and expiration_date.
         filtered_inventory = [
             item
             for item in inventory
             if (
                 item["product_name"] == bought_product["product_name"]
                 and float(item["buy_price"]) == bought_product["buy_price"]
+                and item["expiration_date"] == bought_product["expiration_date"]
             )
         ]
 
@@ -97,4 +98,4 @@ def add_to_inventory(bought_product):
             writer.writerow(bought_product.values())
         
 
-"""add_to_inventory(bought_product))"""
+"""add_to_inventory(bought_product)"""
