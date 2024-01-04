@@ -8,7 +8,7 @@ import uuid
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, BOUGHT_FILE, BOUGHT_HEADER
+from core.constants import DATE_FORMAT, BOUGHT_FILE
 from services.dates import get_today
 from utils.numbers import is_positive_number
 
@@ -21,7 +21,11 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
     
     buy_date = get_today()
     # Convert expiration_date_str into datetime object.
-    expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT)
+    expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT).date()
+
+    if expiration_date < buy_date:
+        print("Can't buy expired products. Please enter a different --expiration_date.")
+        return None
 
     # Generate the data to insert into the CSV file.
     bought_data = {

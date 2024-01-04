@@ -46,7 +46,8 @@ def main():
     
     elif args.command == "buy":
         bought_product = buy_product(args.product_name, args.buy_price, args.count, args.expiration_date)
-        add_to_inventory(bought_product)
+        if bought_product:
+            add_to_inventory(bought_product)
         update_inventory()
 
     elif args.command == "sell":
