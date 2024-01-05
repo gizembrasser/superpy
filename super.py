@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 
 from core.constants import DATE_FORMAT
 from core.parser import create_parser
@@ -7,6 +7,7 @@ from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory, add_to_inventory
 from services.buy import buy_product
 from services.sell import check_stock, sell_product
+from services.costs import calculate_costs
 from utils.output_table import output_table
 
 # Do not change these lines.
@@ -28,15 +29,15 @@ def main():
             if set_today(args.date):
                 print(f"Today's date is now set to {args.date}.")
         if args.today:
-            date_object = datetime.datetime.today()
+            date_object = datetime.today()
             
             set_today(date_object.strftime(DATE_FORMAT))
             print(f"Today's date has been automatically set to the current day.")
         update_inventory()
 
     elif args.command == "get_today":
-        date = get_today()
-        print(f"Today's date is {date}.")
+        today = get_today()
+        print(f"Today's date is {today}.")
 
     elif args.command == "advance_time":
         print(f"Advancing time with {args.days} days...")
@@ -59,7 +60,18 @@ def main():
         
     elif args.command == "report":
         output_table(args.content_type)
+    
+    elif args.command == "costs":
+        today = get_today()
 
+        if args.date:
+            calculate_costs(args.date)
+        if args.today:
+            calculate_costs(today.strftime(DATE_FORMAT))
+        if args.yesterday:
+            yesterday = today - timedelta(days=1)
+            calculate_costs(yesterday.strftime(DATE_FORMAT))
+            
     elif args.command == "clear_history":
         clear_csv_files()
         print("Cleared all CSV files. Run any command to generate new ones.")

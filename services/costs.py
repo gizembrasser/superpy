@@ -58,7 +58,7 @@ def calculate_costs(period_str):
             writer.writerow(COSTS_HEADER)
             writer.writerow(costs_data.values())
 
-    return costs_data
+    print(f"Total costs for {period}: ${costs_data['cost']}")
         
        
 """calculate_costs("2024-01-04")"""
