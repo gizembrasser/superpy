@@ -56,7 +56,7 @@ def calculate_costs(period_str):
     return total_cost
         
     
-total_cost = calculate_costs("2024-01-04")
+"""total_cost = calculate_costs("2024-01-04")"""
 
 
 # Add new row to COSTS_FILE if data for that period hasn't been recorded yet.
@@ -70,9 +70,11 @@ def add_to_costs(costs_data):
     if costs_data not in total_costs:
         total_costs.append(costs_data)
 
-        with open(COSTS_FILE, mode="a", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(costs_data.values())
+        try:
+            with open(COSTS_FILE, mode="a", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(costs_data.values())
+        except AttributeError:
+            return None
 
-
-add_to_costs(total_cost)
+"""add_to_costs(total_cost)"""

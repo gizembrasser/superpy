@@ -7,7 +7,7 @@ from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory, add_to_inventory
 from services.buy import buy_product
 from services.sell import check_stock, sell_product
-from services.costs import calculate_costs
+from services.costs import calculate_costs, add_to_costs
 from utils.output_table import output_table
 
 # Do not change these lines.
@@ -65,12 +65,12 @@ def main():
         today = get_today()
 
         if args.date:
-            calculate_costs(args.date)
+            add_to_costs(calculate_costs(args.date))
         if args.today:
-            calculate_costs(today.strftime(DATE_FORMAT))
+            add_to_costs(calculate_costs(today.strftime(DATE_FORMAT)))
         if args.yesterday:
             yesterday = today - timedelta(days=1)
-            calculate_costs(yesterday.strftime(DATE_FORMAT))
+            add_to_costs(calculate_costs(yesterday.strftime(DATE_FORMAT)))
             
     elif args.command == "clear_history":
         clear_csv_files()
