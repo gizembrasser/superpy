@@ -38,13 +38,19 @@ def create_parser():
                                         "sold", 
                                         "expired", 
                                         "inventory",
-                                        "costs"], 
+                                        "costs",
+                                        "revenue"], 
                                 help="Specify which CSV file to show as a table")
     
     parser_costs = subparsers.add_parser("costs", help="Display total costs for a specifed time period")
     parser_costs.add_argument("date", nargs="?", default=None, help="Choose a date (YYYY-MM-DD)")
-    parser_costs.add_argument("--today", nargs="?", const=True, default=False, help="Show the costs for today")
-    parser_costs.add_argument("--yesterday", nargs="?", const=True, default=False, help="Show the costs for yesterday")
+    parser_costs.add_argument("--today", nargs="?", const=True, default=False, help="Show costs for today")
+    parser_costs.add_argument("--yesterday", nargs="?", const=True, default=False, help="Show costs for yesterday")
+
+    parser_revenue = subparsers.add_parser("revenue", help="Display total revenue for a specifed time period")
+    parser_revenue.add_argument("date", nargs="?", default=None, help="Choose a date (YYYY-MM-DD)")
+    parser_revenue.add_argument("--today", nargs="?", const=True, default=False, help="Show revenue for today")
+    parser_revenue.add_argument("--yesterday", nargs="?", const=True, default=False, help="Show revenue for yesterday")
 
     subparsers.add_parser("clear_history", help="Clear all CSV files")
 

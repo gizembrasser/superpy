@@ -8,6 +8,7 @@ from services.inventory import update_inventory, add_to_inventory
 from services.buy import buy_product
 from services.sell import check_stock, sell_product
 from services.costs import calculate_costs, add_to_costs
+from services.revenue import calculate_revenue, add_to_revenue
 from utils.output_table import output_table
 
 # Do not change these lines.
@@ -17,6 +18,8 @@ __human_name__ = "superpy"
 # Your code below this line.
 def main():
     create_data_files()
+    today = get_today()
+    yesterday = today - timedelta(days=1)
 
     # create_parser() returns an object containing parsed command-line arguments.
     args = create_parser()
@@ -36,7 +39,6 @@ def main():
         update_inventory()
 
     elif args.command == "get_today":
-        today = get_today()
         print(f"Today's date is {today}.")
 
     elif args.command == "advance_time":
@@ -62,15 +64,20 @@ def main():
         output_table(args.content_type)
     
     elif args.command == "costs":
-        today = get_today()
-
         if args.date:
             add_to_costs(calculate_costs(args.date))
         if args.today:
             add_to_costs(calculate_costs(today.strftime(DATE_FORMAT)))
         if args.yesterday:
-            yesterday = today - timedelta(days=1)
             add_to_costs(calculate_costs(yesterday.strftime(DATE_FORMAT)))
+
+    elif args.command == "revenue":
+        if args.date:
+            add_to_revenue(calculate_revenue(args.date))
+        if args.today:
+            add_to_revenue(calculate_revenue(today.strftime(DATE_FORMAT)))
+        if args.yesterday:
+            add_to_revenue(calculate_revenue(yesterday.strftime(DATE_FORMAT)))
             
     elif args.command == "clear_history":
         clear_csv_files()

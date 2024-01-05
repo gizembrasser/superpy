@@ -6,7 +6,7 @@ from datetime import datetime
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, BOUGHT_FILE, COSTS_FILE, COSTS_HEADER
+from core.constants import DATE_FORMAT, BOUGHT_FILE, COSTS_FILE
 
 
 # Function that filters rows of the BOUGHT_FILE based on a time period.
