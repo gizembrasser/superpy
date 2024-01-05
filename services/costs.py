@@ -11,7 +11,13 @@ from core.constants import DATE_FORMAT, BOUGHT_FILE, COSTS_FILE, COSTS_HEADER
 
 # Function that filters rows of the BOUGHT_FILE based on a time period.
 # For each of the filtered rows, read the 'count' and' buy_price' column and multiply them to get the cost.
-def calculate_costs(period):
+def calculate_costs(period_str):
+    try:
+        period = datetime.strptime(period_str, DATE_FORMAT).date()
+    except ValueError:
+        print("Invalid date format. Please use the format YYYY-MM-DD.")
+        return None
+    
     costs = []
 
     with open(BOUGHT_FILE, mode="r") as f:
@@ -23,12 +29,12 @@ def calculate_costs(period):
             item 
             for item in bought
             if (
-            datetime.strptime(item["buy_date"], DATE_FORMAT) == period
+            datetime.strptime(item["buy_date"], DATE_FORMAT).date() == period
             )
         ]
     
     if len(filtered_bought) == 0:
-        print(f"No purchases made during this period: {period} ")
+        print(f"No purchases made during this period: {period_str} ")
         return None
     else: 
         # Loop through filtered_bought list and get the values for 'count' and 'buy_price'.
@@ -55,4 +61,4 @@ def calculate_costs(period):
     return costs_data
         
        
-"""print(calculate_costs(datetime.strptime("2024-01-04", DATE_FORMAT)))"""
+print(calculate_costs("2024-01-04"))
