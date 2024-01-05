@@ -2,14 +2,13 @@ import os
 import sys
 from datetime import datetime, date, timedelta
 
-# Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, TODAY_FILE
 
 
-# Grabs the current day from the TODAY_FILE file.
+# Grabs the current day from the TODAY_FILE.
 def get_today():
     try: 
         with open(TODAY_FILE, "r") as f:
@@ -35,7 +34,7 @@ def set_today(date):
         return date_object
     except ValueError: 
         print("Invalid date format. Please use the format YYYY-MM-DD.")
-        # Return 0 if argument passed is invalid due to ValueError.
+        # Return None if argument passed is invalid due to ValueError.
         return None
 
 

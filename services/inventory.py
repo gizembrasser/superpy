@@ -3,7 +3,6 @@ import os
 import sys
 from datetime import datetime
 
-# Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
@@ -11,7 +10,7 @@ from core.constants import DATE_FORMAT, EXPIRED_FILE, EXPIRED_HEADER, INVENTORY_
 from services.dates import get_today
 """from services.buy import buy_product"""
 
-# Executes after every action performed through the CLI.
+
 # Checks the expiration dates in the INVENTORY_FILE, adds them to EXPIRED_FILE if expired.
 def update_inventory():
     print("Updating inventory...")
@@ -55,6 +54,7 @@ def update_inventory():
 
 """bought_product = buy_product("orange", 0.8, 200, "2024-01-06")"""
 
+
 # Takes a purchased product (a dict from the BOUGHT_FILE) as argument, adds it to the inventory.
 def add_to_inventory(bought_product):
     inventory = []
@@ -62,10 +62,8 @@ def add_to_inventory(bought_product):
     # Check if there's already a product in stock with the same product_name, buy_price and expiration_date. 
     with open(INVENTORY_FILE, mode="r") as f:
         reader = csv.DictReader(f)
-        # Convert the content of INVENTORY_FILE into a list of dictionaries.
         inventory = list(reader)
 
-        # List comprehension to filter the inventory based on the product_name, buy_price and expiration_date.
         filtered_inventory = [
             item
             for item in inventory
@@ -81,7 +79,7 @@ def add_to_inventory(bought_product):
         print(f"Product already in stock, added {bought_product["count"]} to existing stock.")
         inventory.remove(filtered_inventory[0])
         
-        # Instead of adding the product as a new row in INVENTORY_FILE, append the existing product's quantity.
+        # Instead of adding the product as a new row in INVENTORY_FILE, append the existing product's count.
         filtered_inventory[0]["count"] = int(filtered_inventory[0]["count"]) + bought_product["count"]
         inventory.extend(filtered_inventory)
 
@@ -90,9 +88,8 @@ def add_to_inventory(bought_product):
             writer = csv.DictWriter(f, fieldnames=INVENTORY_HEADER)
             writer.writeheader()
             writer.writerows(inventory)
-    # If product isn't in stock, add it as a new row.
+    # If product isn't in stock, just add it as a new row in INVENTORY_FILE.
     else: 
-        # Append the INVENTORY_FILE by adding the bought_product as a new row.
         with open(INVENTORY_FILE, mode="a", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(bought_product.values())

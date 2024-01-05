@@ -3,7 +3,6 @@ import sys
 from rich.table import Table
 from rich.console import Console
 
-# Add grandparent directory to sys.path to be able to import from "core" folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
@@ -88,6 +87,6 @@ def output_table(content_type, period=None):
         table.add_row("")
         table.add_row(*footer, style="bold magenta")  
     
-    # Output table to CLI.
+    # Output table to CLI..
     console = Console()
     console.print(table)

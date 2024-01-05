@@ -3,7 +3,6 @@ import os
 import sys
 from datetime import datetime
 
-# Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
@@ -32,11 +31,11 @@ def calculate_costs(period):
         print(f"No purchases made during this period: {period} ")
         return None
     else: 
-        # Loop through filtered_bought list and read the values for 'count' and 'buy_price'.
+        # Loop through filtered_bought list and get the values for 'count' and 'buy_price'.
         for bought_product in filtered_bought:
             count = bought_product.get("count")
             buy_price = bought_product.get("buy_price")
-            # multiply the count and buy_price for each product.
+            # Multiply the count and buy_price for each product.
             cost_per_product = int(count) * float(buy_price)
 
             # Add the cost for each product to the 'costs' list.   

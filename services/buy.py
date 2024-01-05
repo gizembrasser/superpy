@@ -20,6 +20,7 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
         return None
     
     buy_date = get_today()
+    
     # Convert expiration_date_str into datetime object.
     try:
         expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT).date()
@@ -42,7 +43,7 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
         "expiration_date": expiration_date.strftime(DATE_FORMAT)
     }
 
-    # Appends the BOUGHT_FILE with the new bought product.
+    # Append the BOUGHT_FILE with the new bought product.
     with open(BOUGHT_FILE, mode="a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(bought_data.values())

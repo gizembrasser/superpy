@@ -3,7 +3,6 @@ import os
 import sys
 from datetime import datetime
 
-# Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
@@ -26,10 +25,9 @@ def sell_product(product_name, sell_price, count):
         # Convert the content of INVENTORY_FILE into a list of dictionaries.
         inventory = list(reader)
 
-        # List comprehension to filter the inventory based on the product_name.
         filtered_inventory = [item for item in inventory if (item["product_name"] == product_name)]
 
-    # The filtered_inventory list should contain a dictionary of the found product(s) if in stock.
+    # The filtered_inventory list should contain a dictionary of the found product. if in stock.
     if len(filtered_inventory) == 0:
         print(f"No {product_name} found in stock.")
         return None
@@ -37,11 +35,11 @@ def sell_product(product_name, sell_price, count):
         print(f"Not enough {product_name} in stock. Maximum quantity: {filtered_inventory[0]["count"]}")
         return None
     
-    # Remove the sold product dictionary from the inventory list.
     inventory.remove(filtered_inventory[0])
-        
+   
+    # If amount to be sold is equal to amount in stock, remove sold product from the INVENTORY_FILE.  
     if int(filtered_inventory[0]["count"]) == count:
-        # Overwrite the INVENTORY_FILE to contain the new inventory, without the sold product(s).
+        # Overwrite the INVENTORY_FILE to contain the new inventory, without the sold product.
         with open(INVENTORY_FILE, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=INVENTORY_HEADER)
             writer.writeheader()
@@ -56,7 +54,7 @@ def sell_product(product_name, sell_price, count):
             writer.writeheader()
             writer.writerows(inventory)
                  
-    # Assign the data to the right keys so it can be written to the correct headers in the CSV file.   
+    # Assign the data to the right keys so it can be written to the correct headers in the SOLD_FILE.  
     for item in filtered_inventory:
         sold_data = {
             "sold_id": item["bought_id"],
@@ -68,7 +66,6 @@ def sell_product(product_name, sell_price, count):
             "sell_price": sell_price
         }
 
-    # Append the SOLD_FILE with the sold product.
     with open(SOLD_FILE, mode="a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(sold_data.values())

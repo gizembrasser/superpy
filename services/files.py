@@ -3,7 +3,6 @@ import sys
 import csv
 from datetime import date
 
-# Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
@@ -32,7 +31,7 @@ def create_data_files():
     
     if not os.path.exists(SOLD_FILE):
         #'newline=""' means that no specific newline character (like \n) should be used.
-        # By creating the file this way, every added row will be written on a newline automatically.
+        # By creating the file this way, every added row will be written on a new line automatically.
         with open(SOLD_FILE, "w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(SOLD_HEADER)
