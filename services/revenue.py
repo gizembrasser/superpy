@@ -54,6 +54,7 @@ def calculate_revenue(period_str):
 
 """total_revenue = calculate_revenue("2024-01-05")"""
 
+
 # Add new row to REVENUE_FILE if data for that period hasn't been recorded yet.
 def add_to_revenue(revenue_data):
     total_revenue = []
