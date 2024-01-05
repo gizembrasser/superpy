@@ -6,7 +6,7 @@ from services.files import create_data_files, clear_csv_files
 from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory, add_to_inventory
 from services.buy import buy_product
-from services.sell import sell_product
+from services.sell import check_stock, sell_product
 from utils.output_table import output_table
 
 # Do not change these lines.
@@ -53,7 +53,9 @@ def main():
     elif args.command == "sell":
         # Update inventory before function call, to prevent selling expired products.
         update_inventory()
-        sell_product(args.product_name, args.sell_price, args.count)
+        if check_stock(args.product_name, args.count):
+            inventory, inventory_product = check_stock(args.product_name, args.count)
+            sell_product(inventory, inventory_product, args.sell_price, args.count)
         
     elif args.command == "report":
         output_table(args.content_type)

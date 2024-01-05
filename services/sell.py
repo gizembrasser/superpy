@@ -1,7 +1,6 @@
 import csv
 import os
 import sys
-from datetime import datetime
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
@@ -11,15 +10,13 @@ from services.dates import get_today
 from utils.is_positive_number import is_positive_number
 
 
-# Function that removes sold products from the inventory and writes them to the SOLD_FILE.
-def sell_product(product_name, sell_price, count):
-    if not is_positive_number(sell_price, count):
-        print("Please enter a positive number for --sell_price and --count.")
+# Function that checks if a product is in stock, and how much.
+def check_stock(product_name, count):
+    if not is_positive_number(count):
+        print("Please enter a positive number for --count.")
         return None
     
-    sell_date = get_today()
-
-    # Check the inventory if there's a matching product and if there's enough in stock.
+    # Check the inventory.
     with open(INVENTORY_FILE, mode="r") as f:
         reader = csv.DictReader(f)
         # Convert the content of INVENTORY_FILE into a list of dictionaries.
@@ -27,18 +24,25 @@ def sell_product(product_name, sell_price, count):
 
         filtered_inventory = [item for item in inventory if (item["product_name"] == product_name)]
 
-    # The filtered_inventory list should contain a dictionary of the found product. if in stock.
+    # The filtered_inventory list should contain a dictionary of the found product if in stock.
     if len(filtered_inventory) == 0:
         print(f"No {product_name} found in stock.")
         return None
     elif int(filtered_inventory[0]["count"]) < count:
         print(f"Not enough {product_name} in stock. Maximum quantity: {filtered_inventory[0]["count"]}")
         return None
-    
-    inventory.remove(filtered_inventory[0])
-   
+    else:
+        return inventory, filtered_inventory
+
+
+"""inventory, inventory_product = check_stock("orange", 1)"""
+
+# Function that removes sold products from the inventory and writes them to the SOLD_FILE.
+def sell_product(inventory, inventory_product, sell_price, count):
+    inventory.remove(inventory_product[0])
+
     # If amount to be sold is equal to amount in stock, remove sold product from the INVENTORY_FILE.  
-    if int(filtered_inventory[0]["count"]) == count:
+    if int(inventory_product[0]["count"]) == count:
         # Overwrite the INVENTORY_FILE to contain the new inventory, without the sold product.
         with open(INVENTORY_FILE, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=INVENTORY_HEADER)
@@ -46,32 +50,29 @@ def sell_product(product_name, sell_price, count):
             writer.writerows(inventory)
     else:
         # If the amount to be sold is less than the amount in stock, subtract them.
-        filtered_inventory[0]["count"] = int(filtered_inventory[0]["count"]) - count
+        inventory_product[0]["count"] = int(inventory_product[0]["count"]) - count
         # Extend the inventory with the updated count.
-        inventory.extend(filtered_inventory)
+        inventory.extend(inventory_product)
         with open(INVENTORY_FILE, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=INVENTORY_HEADER)
             writer.writeheader()
             writer.writerows(inventory)
                  
     # Assign the data to the right keys so it can be written to the correct headers in the SOLD_FILE.  
-    for item in filtered_inventory:
+    for item in inventory_product:
         sold_data = {
             "sold_id": item["bought_id"],
             "product_name": item["product_name"],
             "buy_date": item["buy_date"],
             "buy_price": item["buy_price"],
             "count": count,
-            "sell_date": sell_date,
+            "sell_date": get_today(),
             "sell_price": sell_price
         }
 
     with open(SOLD_FILE, mode="a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(sold_data.values())
-    
-                   
-"""sell_product("orange", 0.8, 10)"""
 
 
-
+"""sell_product(inventory, inventory_product, 0.8, 1)"""
