@@ -47,18 +47,32 @@ def calculate_costs(period_str):
             # Add the cost for each product to the 'costs' list.   
             costs.append(cost_per_product)
         
-        costs_data = {
-            "period": period,
-            "cost": sum(costs)
+        total_cost = {
+            "period": period_str,
+            "costs": str(sum(costs))
         }
 
-        # Write the costs_data to the COSTS_FILE.
-        with open(COSTS_FILE, mode="w", newline="") as f:
+    print(f"Total costs for {period}: ${total_cost['costs']}")
+    return total_cost
+        
+    
+total_cost = calculate_costs("2024-01-04")
+
+
+# Add new row to COSTS_FILE if data for that period hasn't been recorded yet.
+def add_to_costs(costs_data):
+    total_costs = []
+
+    with open(COSTS_FILE, mode="r", newline="") as f:
+        reader = csv.DictReader(f)
+        total_costs = list(reader)
+
+    if costs_data not in total_costs:
+        total_costs.append(costs_data)
+
+        with open(COSTS_FILE, mode="a", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(COSTS_HEADER)
             writer.writerow(costs_data.values())
 
-    print(f"Total costs for {period}: ${costs_data['cost']}")
-        
-       
-"""calculate_costs("2024-01-04")"""
+
+add_to_costs(total_cost)
