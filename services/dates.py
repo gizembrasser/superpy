@@ -26,7 +26,7 @@ def get_today():
 def set_today(date):
     # Try to convert argument passed into a datetime object to see if it's a valid date.
     try:
-        date_object = datetime.strptime(date, DATE_FORMAT)
+        date_object = datetime.strptime(date, DATE_FORMAT).date()
     
         with open(TODAY_FILE, "w") as f:
             f.write(date_object.strftime(DATE_FORMAT))

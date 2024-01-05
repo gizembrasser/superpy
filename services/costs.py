@@ -61,4 +61,4 @@ def calculate_costs(period_str):
     return costs_data
         
        
-print(calculate_costs("2024-01-04"))
+"""calculate_costs("2024-01-04")"""
