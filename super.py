@@ -56,6 +56,7 @@ def main():
     elif args.command == "sell":
         # Update inventory before function call, to prevent selling expired products.
         update_inventory()
+        # Check if product is in stock before calling sell_product().
         if check_stock(args.product_name, args.count):
             inventory, inventory_product = check_stock(args.product_name, args.count)
             sell_product(inventory, inventory_product, args.sell_price, args.count)
