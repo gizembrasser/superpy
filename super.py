@@ -9,6 +9,7 @@ from services.buy import buy_product
 from services.sell import check_stock, sell_product
 from services.costs import calculate_costs, add_to_costs
 from services.revenue import calculate_revenue, add_to_revenue
+from services.profit import calculate_profit, add_to_profit
 from utils.output_table import output_table
 
 # Do not change these lines.
@@ -79,7 +80,15 @@ def main():
             add_to_revenue(calculate_revenue(today.strftime(DATE_FORMAT)))
         if args.yesterday:
             add_to_revenue(calculate_revenue(yesterday.strftime(DATE_FORMAT)))
-            
+    
+    elif args.command == "profit":
+        if args.date:
+            add_to_profit(calculate_profit(args.date))
+        if args.today:
+            add_to_profit(calculate_profit(today.strftime(DATE_FORMAT)))
+        if args.yesterday:
+            add_to_profit(calculate_profit(yesterday.strftime(DATE_FORMAT)))
+          
     elif args.command == "clear_history":
         clear_csv_files()
         print("Cleared all CSV files. Run any command to generate new ones.")
