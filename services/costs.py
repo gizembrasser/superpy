@@ -51,8 +51,7 @@ def calculate_costs(period_str):
             "period": period_str,
             "costs": str(sum(costs))
         }
-
-    print(f"Total costs for {period}: ${total_cost['costs']}")
+        
     return total_cost
         
     
@@ -60,21 +59,27 @@ def calculate_costs(period_str):
 
 
 # Add new row to COSTS_FILE if data for that period hasn't been recorded yet.
-def add_to_costs(costs_data):
+def add_to_costs(costs_data):   
     total_costs = []
-
+    
     with open(COSTS_FILE, mode="r", newline="") as f:
         reader = csv.DictReader(f)
         total_costs = list(reader)
 
-    if costs_data not in total_costs:
-        total_costs.append(costs_data)
+    try:
+        print(f"Total costs for {costs_data['period']}: ${costs_data['costs']}")
 
-        try:
-            with open(COSTS_FILE, mode="a", newline="") as f:
-                writer = csv.writer(f)
-                writer.writerow(costs_data.values())
-        except AttributeError:
-            return None
+        if costs_data not in total_costs:
+            total_costs.append(costs_data)
+
+            try:
+                with open(COSTS_FILE, mode="a", newline="") as f:
+                    writer = csv.writer(f)
+                    writer.writerow(costs_data.values())
+            except AttributeError:
+                return None
+    
+    except TypeError:
+        return None
 
 """add_to_costs(total_cost)"""

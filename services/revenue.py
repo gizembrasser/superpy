@@ -48,7 +48,6 @@ def calculate_revenue(period_str):
             "revenue": str(sum(revenue))
         }
 
-    print(f"Total revenue for {period}: ${total_revenue['revenue']}")
     return total_revenue
 
 
@@ -62,16 +61,22 @@ def add_to_revenue(revenue_data):
     with open(REVENUE_FILE, mode="r", newline="") as f:
         reader = csv.DictReader(f)
         total_revenue = list(reader)
+    
+    try:
+        print(f"Total revenue for {revenue_data['period']}: ${revenue_data['revenue']}")
 
-    if revenue_data not in total_revenue:
-        total_revenue.append(revenue_data)
+        if revenue_data not in total_revenue:
+            total_revenue.append(revenue_data)
 
-        try:
-            with open(REVENUE_FILE, mode="a", newline="") as f:
-                writer = csv.writer(f)
-                writer.writerow(revenue_data.values())
-        except AttributeError:
-            return None
+            try:
+                with open(REVENUE_FILE, mode="a", newline="") as f:
+                    writer = csv.writer(f)
+                    writer.writerow(revenue_data.values())
+            except AttributeError:
+                return None
+            
+    except TypeError:
+        return None
 
 
 """add_to_revenue(total_revenue)"""
