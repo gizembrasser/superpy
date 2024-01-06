@@ -6,7 +6,7 @@ from datetime import datetime
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, COSTS_FILE, REVENUE_FILE
+from core.constants import DATE_FORMAT, PROFIT_FILE
 from services.costs import calculate_costs
 from services.revenue import calculate_revenue
 
@@ -28,7 +28,6 @@ def calculate_profit(period_str):
             "profit": f"-{total_costs['costs']}"
         }
 
-        print(f"Total profit for {period}: ${total_profit['profit']}")
         return total_profit
     
     elif total_revenue and not total_costs:
@@ -38,7 +37,6 @@ def calculate_profit(period_str):
 
         }
         
-        print(f"Total profit for {period}: ${total_profit['profit']}")
         return total_profit
     
     elif total_costs and total_revenue:
@@ -46,14 +44,40 @@ def calculate_profit(period_str):
 
         total_profit = {
             "period": period_str,
-            "profit": profit
+            "profit": str(profit)
         }
 
-        print(f"Total profit for {period}: ${profit}")
         return total_profit
     
     else:
         return None
 
 
-calculate_profit("2024-01-06")
+"""total_profit = calculate_profit("2024-01-05")"""
+
+
+def add_to_profit(profit_data):
+    total_profit = []
+
+    with open(PROFIT_FILE, mode="r", newline="") as f:
+        reader = csv.DictReader(f)
+        total_profit = list(reader)
+    
+    try:
+        print(f"Total profit for {profit_data['period']}: ${profit_data['profit']}")
+
+        if profit_data not in total_profit:
+            total_profit.append(profit_data)
+
+            try:
+                with open(PROFIT_FILE, mode="a", newline="") as f:
+                    writer = csv.writer(f)
+                    writer.writerow(profit_data.values())
+            except AttributeError:
+                return None
+            
+    except TypeError:
+        return None
+
+
+"""add_to_profit(total_profit)"""
