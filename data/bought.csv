@@ -4,3 +4,4 @@ id,product_name,buy_date,buy_price,count,expiration_date
 79dfa63e-884c-4305-afdd-cb28b1e98c57,caviar,2024-01-04,5.75,4,2024-01-06
 76f8bcb7-9dfc-466d-82e8-df46f23ce5c3,orange,2024-01-04,0.25,100,2024-01-06
 2795ad42-8688-409f-8da9-40bd1934f71c,apple,2024-01-06,0.65,175,2024-01-12
+f1764fd7-fb7d-4139-96d3-3d5e93ad3e80,tit,2024-01-07,1.35,1,2024-01-07

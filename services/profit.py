@@ -37,7 +37,7 @@ def calculate_profit(period_str):
         return total_profit
     
     elif total_costs and total_revenue:
-        profit = float(total_costs['costs']) - float(total_revenue['revenue'])
+        profit = float(total_revenue['revenue']) - float(total_costs['costs'])
 
         total_profit = {
             "period": period_str,
