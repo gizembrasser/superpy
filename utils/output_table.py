@@ -11,8 +11,8 @@ from core.constants import BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE,
 
 
 # Function that outputs a table to the CLI.
-# Takes a name of a CSV file, and a time period to select data from as arguments.
-def output_table(content_type, period=None):
+# Takes a name of a CSV file as argument.
+def output_table(content_type):
     # Determine which CSV file to show based on content_type argument.
     if content_type == "inventory":
         headers = INVENTORY_HEADER
@@ -56,10 +56,7 @@ def output_table(content_type, period=None):
                 data = data[:1]
 
     # Create table object with a title and header_style.
-    if period != None:
-        title = f"\n {period.capitalize()} {content_type.capitalize()} table:"
-    else:
-        title = f"\n {content_type.capitalize()} table:"
+    title = f"\n {content_type.capitalize()} table:"
 
     table = Table(title=title, show_header=True, header_style="bold magenta")
 
