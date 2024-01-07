@@ -6,6 +6,7 @@ sys.path.append(grandparent_dir)
 
 from is_positive_number import is_positive_number
 
+
 def test_is_positive_number_two_args():
     assert is_positive_number(3.5, 4) == True
 
