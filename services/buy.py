@@ -1,14 +1,13 @@
 import csv
 import os
 import sys
-from datetime import datetime
 import uuid
 
 # Add grandparent directory to sys.path to be able to import from 'core' folder.
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, BOUGHT_FILE
+from core.constants import BOUGHT_FILE
 from services.dates import get_today
 from utils.is_positive_number import is_positive_number
 from utils.convert_to_date import convert_to_date
@@ -40,7 +39,7 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
         "buy_date": buy_date,
         "buy_price": buy_price,
         "count": count,
-        "expiration_date": expiration_date.strftime(DATE_FORMAT)
+        "expiration_date": expiration_date_str
     }
 
     # Append the BOUGHT_FILE with the new bought product.

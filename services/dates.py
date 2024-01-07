@@ -1,11 +1,12 @@
 import os
 import sys
-from datetime import datetime, date, timedelta
+from datetime import date, timedelta
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
 from core.constants import DATE_FORMAT, TODAY_FILE
+from utils.convert_to_date import convert_to_date
 
 
 # Grabs the current day from the TODAY_FILE.
@@ -14,7 +15,7 @@ def get_today():
         with open(TODAY_FILE, "r") as f:
             # Read the file, strip any whitespaces so you'll end up with the date string.
             today_str = f.read().strip()
-            today_date = datetime.strptime(today_str, DATE_FORMAT).date()
+            today_date = convert_to_date(today_str)
         # Return today's date as a datetime object.
         return today_date 
         
@@ -23,18 +24,16 @@ def get_today():
 
 
 # Manually set a date for today.
-def set_today(date):
+def set_today(date_str):
     # Try to convert argument passed into a datetime object to see if it's a valid date.
-    try:
-        date_object = datetime.strptime(date, DATE_FORMAT).date()
+    if convert_to_date(date_str):
+        date = convert_to_date(date_str)
     
         with open(TODAY_FILE, "w") as f:
-            f.write(date_object.strftime(DATE_FORMAT))
+            f.write(date_str)
         
-        return date_object
-    except ValueError: 
-        print("Invalid date format. Please use the format YYYY-MM-DD.")
-        # Return None if argument passed is invalid due to ValueError.
+        return date
+    else:
         return None
 
 

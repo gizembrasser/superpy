@@ -37,6 +37,7 @@ def check_stock(product_name, count):
 
 """inventory, inventory_product = check_stock("orange", 1)"""
 
+
 # Function that removes sold products from the inventory and writes them to the SOLD_FILE.
 def sell_product(inventory, inventory_product, sell_price, count):
     inventory.remove(inventory_product[0])

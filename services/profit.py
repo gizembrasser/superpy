@@ -1,26 +1,23 @@
 import csv
 import os
 import sys
-from datetime import datetime
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, PROFIT_FILE
+from core.constants import PROFIT_FILE
 from services.costs import calculate_costs
 from services.revenue import calculate_revenue
+from utils.convert_to_date import convert_to_date
 
 
 # Calculates the profit based on the result of calculate_costs() and calculate_revenue() for a certain period.
 def calculate_profit(period_str):
-    try:
-        period = datetime.strptime(period_str, DATE_FORMAT).date()
-    except ValueError:
-        print("Invalid date format. Please use the format YYYY-MM-DD.")
+    if convert_to_date(period_str):
+        total_costs = calculate_costs(period_str)
+        total_revenue = calculate_revenue(period_str)
+    else: 
         return None
-    
-    total_costs = calculate_costs(period_str)
-    total_revenue = calculate_revenue(period_str)
     
     if total_costs and not total_revenue:
         total_profit = {
@@ -69,13 +66,9 @@ def add_to_profit(profit_data):
         if profit_data not in total_profit:
             total_profit.append(profit_data)
 
-            try:
-                with open(PROFIT_FILE, mode="a", newline="") as f:
-                    writer = csv.writer(f)
-                    writer.writerow(profit_data.values())
-            except AttributeError:
-                return None
-            
+            with open(PROFIT_FILE, mode="a", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(profit_data.values())         
     except TypeError:
         return None
 

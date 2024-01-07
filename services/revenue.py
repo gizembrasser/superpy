@@ -1,21 +1,20 @@
 import csv
 import os
 import sys
-from datetime import datetime
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, SOLD_FILE, REVENUE_FILE
+from core.constants import SOLD_FILE, REVENUE_FILE
+from utils.convert_to_date import convert_to_date
 
 
 # Function that filters rows of the SOLD_FILE based on a time period.
 # For each of the filtered rows, read the 'count' and' sell_price' column and multiply them to get the revenue.
 def calculate_revenue(period_str):
-    try:
-        period = datetime.strptime(period_str, DATE_FORMAT).date()
-    except ValueError:
-        print("Invalid date format. Please use the format YYYY-MM-DD.")
+    if convert_to_date(period_str):
+        period = convert_to_date(period_str)
+    else:
         return None
     
     revenue = []
@@ -28,7 +27,7 @@ def calculate_revenue(period_str):
             item 
             for item in sold
             if (
-            datetime.strptime(item["sell_date"], DATE_FORMAT).date() == period
+            convert_to_date(item["sell_date"]) == period
             )
         ]
     
@@ -68,13 +67,9 @@ def add_to_revenue(revenue_data):
         if revenue_data not in total_revenue:
             total_revenue.append(revenue_data)
 
-            try:
-                with open(REVENUE_FILE, mode="a", newline="") as f:
-                    writer = csv.writer(f)
-                    writer.writerow(revenue_data.values())
-            except AttributeError:
-                return None
-            
+            with open(REVENUE_FILE, mode="a", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(revenue_data.values())         
     except TypeError:
         return None
 

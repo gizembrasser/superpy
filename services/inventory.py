@@ -1,13 +1,13 @@
 import csv
 import os
 import sys
-from datetime import datetime
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import DATE_FORMAT, EXPIRED_FILE, EXPIRED_HEADER, INVENTORY_FILE, INVENTORY_HEADER
+from core.constants import EXPIRED_FILE, EXPIRED_HEADER, INVENTORY_FILE, INVENTORY_HEADER
 from services.dates import get_today
+from utils.convert_to_date import convert_to_date
 """from services.buy import buy_product"""
 
 
@@ -27,7 +27,7 @@ def update_inventory():
             # Use .get() to retrieve the value of the 'expiration_date' key.
             expiration_date_str = row.get("expiration_date")
             # Convert expiration_date values to datetime object, to compare them with today_date.
-            expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT).date()
+            expiration_date = convert_to_date(expiration_date_str)
 
             if expiration_date < today_date:
                 expired.append(row)
