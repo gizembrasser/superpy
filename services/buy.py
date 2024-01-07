@@ -11,6 +11,7 @@ sys.path.append(grandparent_dir)
 from core.constants import DATE_FORMAT, BOUGHT_FILE
 from services.dates import get_today
 from utils.is_positive_number import is_positive_number
+from utils.convert_to_date import convert_to_date
 
 
 # Function that takes attributes of a product as arguments, adds the product to BOUGHT_FILE.
@@ -18,15 +19,14 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
     if not is_positive_number(buy_price, count):
         print("Please enter a positive number for --buy_price and --count.")
         return None
+       
+    # Convert expiration_date_str into datetime object.
+    if convert_to_date(expiration_date_str):
+        expiration_date = convert_to_date(expiration_date_str)
+    else: 
+        return None
     
     buy_date = get_today()
-    
-    # Convert expiration_date_str into datetime object.
-    try:
-        expiration_date = datetime.strptime(expiration_date_str, DATE_FORMAT).date()
-    except ValueError:
-        print("Invalid date format. Please use the format YYYY-MM-DD.")
-        return None
 
     if expiration_date < buy_date:
         print("Can't buy expired products. Please enter a different --expiration_date.")
@@ -51,4 +51,4 @@ def buy_product(product_name, buy_price, count, expiration_date_str):
     return bought_data
         
 
-"""print(buy_product("pee", 1.4, 75, "2024-01-04"))"""
+"""buy_product("pee", 1.4, 75, "2024-01-07")"""
