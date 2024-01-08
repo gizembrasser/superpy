@@ -63,6 +63,7 @@ def main():
             sell_product(inventory, inventory_product, args.sell_price, args.count)
         
     elif args.command == "report":
+        update_inventory()
         output_table(args.content_type)
     
     elif args.command == "costs":

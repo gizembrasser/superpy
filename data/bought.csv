@@ -5,3 +5,4 @@ id,product_name,buy_date,buy_price,count,expiration_date
 76f8bcb7-9dfc-466d-82e8-df46f23ce5c3,orange,2024-01-04,0.25,100,2024-01-06
 2795ad42-8688-409f-8da9-40bd1934f71c,apple,2024-01-06,0.65,175,2024-01-12
 f1764fd7-fb7d-4139-96d3-3d5e93ad3e80,tit,2024-01-07,1.35,1,2024-01-07
+14cac26b-db2d-4baf-bcf3-3f9db6d7a0eb,garlic,2024-01-07,0.1,850,2024-02-01
