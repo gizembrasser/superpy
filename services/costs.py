@@ -1,6 +1,7 @@
 import csv
 import os
 import sys
+from collections import defaultdict
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
@@ -54,18 +55,39 @@ def calculate_costs(period_str):
     return total_cost
         
     
-"""total_cost = calculate_costs("2024-01-03")"""
+"""total_cost = calculate_costs("2024-01-07")"""
 
 
 # Add new row to COSTS_FILE if data for that period hasn't been recorded yet.
-def add_to_costs(costs_data):   
-    total_costs = []
+def add_to_costs(costs_data): 
+    # Create a dictionary to store costs for each period.  
+    costs_per_period = defaultdict(float)
     
     with open(COSTS_FILE, mode="r", newline="") as f:
         reader = csv.DictReader(f)
         total_costs = list(reader)
 
     try:
+        filtered_costs = [
+            item
+            for item in total_costs
+            if (
+                item["period"] == costs_data["period"]
+            )
+        ]
+    # If there isn't any costs_data for the period, a TypeError should occur.
+    except TypeError:
+        return None
+
+    # If there's multiple costs_data for one period, add the costs together.   
+    if len(filtered_costs) > 0:
+        for row in filtered_costs:
+            period = row["period"]
+            cost = float(row["costs"])
+            costs_per_period[period] += cost
+            
+        print(f"Total costs for {costs_data['period']}: ${round((costs_per_period[period]), 2)}")
+    else:
         print(f"Total costs for {costs_data['period']}: ${costs_data['costs']}")
 
         if costs_data not in total_costs:
@@ -74,8 +96,6 @@ def add_to_costs(costs_data):
             with open(COSTS_FILE, mode="a", newline="") as f:
                 writer = csv.writer(f)
                 writer.writerow(costs_data.values())
-    except TypeError:
-        return None
 
 
 """add_to_costs(total_cost)"""
