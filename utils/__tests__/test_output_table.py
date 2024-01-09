@@ -15,6 +15,8 @@ def test_output_table(capsys):
     actual_output = captured.out.strip() # Remove leading/trailing whitespaces.
 
     expected_output = '     Revenue table:     \n┏━━━━━━━━━━━━┳━━━━━━━━━┓\n┃   period   ┃ revenue ┃\n┡━━━━━━━━━━━━╇━━━━━━━━━┩\n│ 2024-01-01 │  79.2   │\n│ 2024-01-06 │  22.5   │\n│ 2024-01-07 │  75.0   │\n└────────────┴─────────┘'
+    
+    assert expected_output == actual_output
     assert "error" not in captured.err # Ensure no error messages are printed
 
 
