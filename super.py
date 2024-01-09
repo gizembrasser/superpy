@@ -10,7 +10,7 @@ from services.sell import check_stock, sell_product
 from services.costs import calculate_costs, add_to_costs
 from services.revenue import calculate_revenue, add_to_revenue
 from services.profit import calculate_profit, add_to_profit
-from utils.output_table import output_table
+from utils.output_table import output_table, get_file_path
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -64,7 +64,8 @@ def main():
         
     elif args.command == "report":
         update_inventory()
-        output_table(args.content_type)
+        if get_file_path(args.content_type):
+            output_table(*get_file_path(args.content_type))
     
     elif args.command == "costs":
         if args.date:

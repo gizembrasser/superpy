@@ -10,9 +10,8 @@ from core.constants import BOUGHT_HEADER, SOLD_HEADER,  EXPIRED_HEADER, INVENTOR
 from core.constants import BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE, COSTS_FILE, REVENUE_FILE, PROFIT_FILE
 
 
-# Function that outputs a table to the CLI.
-# Takes a name of a CSV file as argument.
-def output_table(content_type):
+# Takes a name of a CSV file as argument and matches it to the right file path and headers.
+def get_file_path(content_type):
     # Determine which CSV file to show based on content_type argument.
     if content_type == "inventory":
         headers = INVENTORY_HEADER
@@ -38,7 +37,11 @@ def output_table(content_type):
     else:
         print("Invalid content type specified.")
         return None
-    
+    return headers, data_file, content_type
+
+
+# Function that outputs a table based on a CSV file to the CLI.
+def output_table(headers, data_file, content_type):
     # Load data from CSV file.
     with open(data_file, mode="r") as f:
         next(f) # Skip the header row.
