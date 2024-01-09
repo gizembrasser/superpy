@@ -2,11 +2,12 @@ import os
 import sys
 import csv
 import tempfile
+from unittest.mock import patch
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from output_table import output_table
+from output_table import output_table, get_file_path
 
 
 def create_test_csv(test_data):
@@ -15,6 +16,18 @@ def create_test_csv(test_data):
        writer = csv.writer(temp_csv)
        writer.writerows(test_data)
        return temp_csv.name
+    
+
+def test_get_file_path():
+    # Test case for profit content type.
+    with patch("output_table.PROFIT_FILE", "mock_profit.csv"):
+        headers, data_file, content_type = get_file_path("profit")
+    assert headers == ["period", "profit"]
+    assert data_file == "mock_profit.csv"
+    assert content_type == "profit"
+    
+    # Test case for invalid content type.
+    assert get_file_path("invalid") == None
 
 
 def test_output_table(capsys):
