@@ -2,7 +2,6 @@ import os
 import sys
 import csv
 import tempfile
-from unittest.mock import patch
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
@@ -28,16 +27,11 @@ def test_output_table(capsys):
     ]
 
     # Create a temporary CSV file with the test data, and the other arguments needed for output_table()
-    test_csv_file = create_test_csv(test_data)
+    test_data_file = create_test_csv(test_data)
     test_headers = ["period", "revenue"]
     test_content_type = "revenue"
 
-    # Mock the behavior of the function that constructs the file path.
-    with patch("output_table.get_file_path") as mock_get_file_path:
-        # Configure the mock behavior. 
-        mock_get_file_path.return_value = test_headers, test_csv_file, test_content_type
-
-        output_table(*mock_get_file_path())
+    output_table(test_headers, test_data_file, test_content_type)
 
     # Capture the output.
     captured = capsys.readouterr()
@@ -47,7 +41,3 @@ def test_output_table(capsys):
     
     assert expected_output == actual_output
     assert "error" not in captured.err # Ensure no error messages are printed
-
-
-
-
