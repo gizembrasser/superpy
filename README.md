@@ -17,39 +17,39 @@ Superpy is a command-line interface (CLI) built for supermarkets to help manage 
 
 ## Commands
 1. **Set current date:** $ python super.py set_today `YYYY-MM-DD`
-- Use the --today argument to set the current date to today. 
+> _Use the --today argument to set the current date to today._
 
 2. **Get current date:** $ python super.py get_today
-- Fetches the current date set by the user.
+> _Fetches the current date set by the user._
 
 3. **Advance date:** $ python super.py advance_time `days`
-- The `days` argument can also be a negative number to go back in time.
+> _The `days` argument can also be a negative number to go back in time._
 
 4. **Buy product:** $ python super.py buy --product_name `"name"` --buy_price `price` --count `100` --expiration_date `YYYY-MM-DD`
-- The system will purchase a product and add it to the inventory.
-- The --count option will default to 1 if you omit the argument. 
+> _The system will purchase a product and add it to the inventory._
+> _The --count option will default to 1 if you omit the argument._
 
 5. **Sell product:** $ python super.py sell --product_name `"name"` --sell_price `price` --count `100`
-- The system will search for the product in the inventory, and sell if it's in stock.
-- The --count option will default to 1 if you omit the argument. 
+> _The system will search for the product in the inventory, and sell if it's in stock._
+> _The --count option will default to 1 if you omit the argument._
 
 6. **Generate report:** $ python super.py report `"file_name"`
-- Will show a table in the CLI of a CSV file. Choose between: `"bought"`, `"sold"`, `"inventory"`, `"expired"`.
+> _Will show a table in the CLI of a CSV file. Choose between: `"bought"`, `"sold"`, `"inventory"`, `"expired"`._
 
 7. **Calculate costs:** $ python super.py costs `YYYY-MM-DD`
-- Will display the costs for a specified time period.
-- Can be used with the optional --today or --yesterday arguments.
+> _Will display the costs for a specified time period._
+> _Can be used with the optional --today or --yesterday arguments._
 
 8. **Calculate revenue:** $ python super.py revenue `YYYY-MM-DD`
-- Will display the revenue for a specified time period.
-- Can be used with the optional --today or --yesterday arguments.
+> _Will display the revenue for a specified time period._
+> _Can be used with the optional --today or --yesterday arguments._
 
 9. **Calculate profit:** $ python super.py profit `YYYY-MM-DD`
-- Will display the profit for a specified time period.
-- Can be used with the optional --today or --yesterday arguments.
+> _Will display the profit for a specified time period._
+> _Can be used with the optional --today or --yesterday arguments._
 
 10. **Clear all CSV files:** $ python super.py clear_history
-- Deletes all CSV files. Run any command to generate new ones.
+> _Deletes all CSV files. Run any command to generate new ones._
 
 ## Data storage
 All transaction data is stored in CSV files located in the `data` directory. 
