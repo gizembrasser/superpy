@@ -6,8 +6,8 @@ from rich.console import Console
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from core.constants import BOUGHT_HEADER, SOLD_HEADER,  EXPIRED_HEADER, INVENTORY_HEADER, COSTS_HEADER, REVENUE_HEADER, PROFIT_HEADER
-from core.constants import BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE, COSTS_FILE, REVENUE_FILE, PROFIT_FILE
+from core.constants import BOUGHT_HEADER, SOLD_HEADER,  EXPIRED_HEADER, INVENTORY_HEADER
+from core.constants import BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE
 
 
 # Takes a name of a CSV file as argument and matches it to the right file path and headers.
@@ -22,18 +22,9 @@ def get_file_path(content_type):
     elif content_type == "sold":
         headers = SOLD_HEADER
         data_file = SOLD_FILE
-    elif content_type == "costs":
-        headers = COSTS_HEADER
-        data_file = COSTS_FILE
     elif content_type == "expired":
         headers = EXPIRED_HEADER
         data_file = EXPIRED_FILE
-    elif content_type == "revenue":
-        headers = REVENUE_HEADER
-        data_file = REVENUE_FILE            
-    elif content_type == "profit":
-        headers = PROFIT_HEADER
-        data_file = PROFIT_FILE
     else:
         print("Invalid content type specified.")
         return None

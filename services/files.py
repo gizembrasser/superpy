@@ -7,8 +7,8 @@ grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
 from core.constants import DATA_DIR, DATE_FORMAT
-from core.constants import TODAY_FILE, BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE, COSTS_FILE, REVENUE_FILE, PROFIT_FILE
-from core.constants import BOUGHT_HEADER, SOLD_HEADER, EXPIRED_HEADER, INVENTORY_HEADER, COSTS_HEADER, REVENUE_HEADER, PROFIT_HEADER
+from core.constants import TODAY_FILE, BOUGHT_FILE, SOLD_FILE, EXPIRED_FILE, INVENTORY_FILE
+from core.constants import BOUGHT_HEADER, SOLD_HEADER, EXPIRED_HEADER, INVENTORY_HEADER
 
 
 # Create directory for data files if it doesn't exist.
@@ -47,21 +47,6 @@ def create_data_files():
             writer = csv.writer(f)
             # Write the first row to the file, which contains the headers.
             writer.writerow(INVENTORY_HEADER)
-
-    if not os.path.exists(COSTS_FILE):
-        with open(COSTS_FILE, "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(COSTS_HEADER)
-
-    if not os.path.exists(REVENUE_FILE):
-        with open(REVENUE_FILE, "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(REVENUE_HEADER)
-
-    if not os.path.exists(PROFIT_FILE):
-        with open(PROFIT_FILE, "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(PROFIT_HEADER)
 
 
 # Function to delete all CSV files.

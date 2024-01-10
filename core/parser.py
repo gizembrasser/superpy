@@ -37,10 +37,7 @@ def create_parser():
                                choices=["bought", 
                                         "sold", 
                                         "expired", 
-                                        "inventory",
-                                        "costs",
-                                        "revenue",
-                                        "profit"], 
+                                        "inventory"],
                                 help="Specify which CSV file to show as a table")
     
     parser_costs = subparsers.add_parser("costs", help="Display total costs for a specified time period")

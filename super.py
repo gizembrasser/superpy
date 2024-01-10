@@ -7,9 +7,9 @@ from services.dates import get_today, set_today, advance_time
 from services.inventory import update_inventory, add_to_inventory
 from services.buy import buy_product
 from services.sell import check_stock, sell_product
-from services.costs import calculate_costs, add_to_costs
-from services.revenue import calculate_revenue, add_to_revenue
-from services.profit import calculate_profit, add_to_profit
+from services.costs import calculate_costs
+from services.revenue import calculate_revenue
+from services.profit import calculate_profit
 from utils.output_table import output_table, get_file_path
 
 # Do not change these lines.
@@ -52,6 +52,7 @@ def main():
         # If buy_product() returned a valid product dictionary, add it to inventory.
         if bought_product:
             add_to_inventory(bought_product)
+            print("Purchase completed.")
         update_inventory()
 
     elif args.command == "sell":
@@ -61,6 +62,7 @@ def main():
         if check_stock(args.product_name, args.count):
             inventory, inventory_product = check_stock(args.product_name, args.count)
             sell_product(inventory, inventory_product, args.sell_price, args.count)
+            print("Sale completed.")
         
     elif args.command == "report":
         update_inventory()
@@ -69,27 +71,27 @@ def main():
     
     elif args.command == "costs":
         if args.date:
-            add_to_costs(calculate_costs(args.date))
+            calculate_costs(args.date)
         if args.today:
-            add_to_costs(calculate_costs(today.strftime(DATE_FORMAT)))
+            calculate_costs(today.strftime(DATE_FORMAT))
         if args.yesterday:
-            add_to_costs(calculate_costs(yesterday.strftime(DATE_FORMAT)))
+            calculate_costs(yesterday.strftime(DATE_FORMAT))
 
     elif args.command == "revenue":
         if args.date:
-            add_to_revenue(calculate_revenue(args.date))
+            calculate_revenue(args.date)
         if args.today:
-            add_to_revenue(calculate_revenue(today.strftime(DATE_FORMAT)))
+            calculate_revenue(today.strftime(DATE_FORMAT))
         if args.yesterday:
-            add_to_revenue(calculate_revenue(yesterday.strftime(DATE_FORMAT)))
+            calculate_revenue(yesterday.strftime(DATE_FORMAT))
     
     elif args.command == "profit":
         if args.date:
-            add_to_profit(calculate_profit(args.date))
+            calculate_profit(args.date)
         if args.today:
-            add_to_profit(calculate_profit(today.strftime(DATE_FORMAT)))
+            calculate_profit(today.strftime(DATE_FORMAT))
         if args.yesterday:
-            add_to_profit(calculate_profit(yesterday.strftime(DATE_FORMAT)))
+            calculate_profit(yesterday.strftime(DATE_FORMAT))
           
     elif args.command == "clear_history":
         clear_csv_files()
