@@ -19,12 +19,12 @@ def create_test_csv(test_data):
     
 
 def test_get_file_path():
-    # Test case for profit content type.
-    with patch("output_table.PROFIT_FILE", "mock_profit.csv"):
-        headers, data_file, content_type = get_file_path("profit")
-    assert headers == ["period", "profit"]
-    assert data_file == "mock_profit.csv"
-    assert content_type == "profit"
+    # Test case for inventory content type.
+    with patch("output_table.INVENTORY_FILE", "mock_inventory.csv"):
+        headers, data_file, content_type = get_file_path("inventory")
+    assert headers == ["bought_id", "product_name", "buy_date", "buy_price", "count", "expiration_date"]
+    assert data_file == "mock_inventory.csv"
+    assert content_type == "inventory"
     
     # Test case for invalid content type.
     assert get_file_path("invalid") == None
