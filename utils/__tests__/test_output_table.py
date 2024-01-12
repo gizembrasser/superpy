@@ -1,7 +1,5 @@
 import os
 import sys
-import csv
-import tempfile
 from unittest.mock import patch
 
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
