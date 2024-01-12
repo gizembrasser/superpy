@@ -8,15 +8,8 @@ grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
 from output_table import output_table, get_file_path
+from create_test_csv import create_test_csv
 
-
-def create_test_csv(test_data):
-    # Create a temporary CSV file with test data.
-    with tempfile.NamedTemporaryFile(mode="w", newline="", delete=False) as temp_csv:
-       writer = csv.writer(temp_csv)
-       writer.writerows(test_data)
-       return temp_csv.name
-    
 
 def test_get_file_path():
     # Test case for inventory content type.
